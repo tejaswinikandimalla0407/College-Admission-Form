@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-and-mongodb-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: app-and-mongodb
+  template:
+    metadata:
+      labels:
+        app: app-and-mongodb
+    spec:
+      containers:
+      - name: my-app
+        image: sowmya140/student-application-app:latest
+        ports:
+        - containerPort: 3007
+        env:
+        - name: MONGO_URI
+          value: mongodb://localhost:27017/studentDB
+        - name: PORT
+          value: "3007"
+        - name: NODE_ENV
+          value: production
+        imagePullPolicy: Always
+      - name: mongodb
+        image: mongo:latest
+        ports:
+        - containerPort: 27017
+        env:
+        - name: MONGO_INITDB_DATABASE
+          value: studentDB
+        imagePullPolicy: Always
+      restartPolicy: Always

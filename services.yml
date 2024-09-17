@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-and-mongodb-service
+spec:
+  selector:
+    app: app-and-mongodb
+  ports:
+    - name: mongodb-port
+      port: 27017
+      targetPort: 27017
+    - name: app-port
+      port: 3007
+      targetPort: 3007
+  type: NodePort  # You can change this to ClusterIP or LoadBalancer depending on your setup
