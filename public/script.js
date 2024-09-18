@@ -134,7 +134,7 @@ document.getElementById('studentForm').addEventListener('submit', function(e) {
     };
 
     // Submit form data to the server
-    fetch('http://localhost:3007/api/students', {
+    fetch('http://localhost:3028/api/students', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

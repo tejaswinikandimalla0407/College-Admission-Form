@@ -8,8 +8,6 @@ services:
       - "27017:27017"
     networks:
       - app-network
-    volumes:
-      - mongo-data:/data/db
 
   app:
     build:
@@ -17,7 +15,7 @@ services:
       dockerfile: Dockerfile
     container_name: my-app
     ports:
-      - "3007:3007"
+      - "3028:3028"
     depends_on:
       - mongodb
     environment:
@@ -28,6 +26,3 @@ services:
 networks:
   app-network:
     driver: bridge
-
-volumes:
-  mongo-data:

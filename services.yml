@@ -1,15 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: app-and-mongodb-service
+  name: admissionform
 spec:
   selector:
-    app: app-and-mongodb
+    app: myapp
   ports:
-    - name: mongodb-port
-      port: 27017
-      targetPort: 27017
-    - name: app-port
-      port: 3007
-      targetPort: 3007
-  type: NodePort  # You can change this to ClusterIP or LoadBalancer depending on your setup
+  - protocol: TCP
+    port: 3028
+    targetPort: 3028
+  type: NodePort

@@ -13,11 +13,13 @@ app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Connect to MongoDB
-mongoose.connect('mongodb://mongodb:27017/studentDB', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    
-})
+mongoose.connect(process.env.MONGO_URI || 'mongodb://mongodb:27017/studentDB')
+  .then(() => console.log('MongoDB connected'))
+  .catch(err => {
+    console.error('MongoDB connection error:', err);
+    process.exit(1);
+  });
+
 
 // Define the Student schema
 const studentSchema = new mongoose.Schema({
@@ -158,7 +160,7 @@ app.get('*', (req, res) => {
 });
 
 // Start the server
-const PORT = 3007;
+const PORT = 3028;
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
