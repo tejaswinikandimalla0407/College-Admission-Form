@@ -1,13 +1,11 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const cors = require('cors');
 const path = require('path');
 
 // Create the Express app
 const app = express();
 app.use(bodyParser.json());
-app.use(cors());
 
 // Serve static files from the 'frontend' directory
 app.use(express.static(path.join(__dirname, 'public')));
@@ -19,7 +17,6 @@ mongoose.connect(process.env.MONGO_URI || 'mongodb://mongodb:27017/studentDB')
     console.error('MongoDB connection error:', err);
     process.exit(1);
   });
-
 
 // Define the Student schema
 const studentSchema = new mongoose.Schema({

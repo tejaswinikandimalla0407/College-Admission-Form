@@ -145,16 +145,7 @@ document.getElementById('studentForm').addEventListener('submit', function(e) {
     .then(data => {
         alert(data.message);
         document.getElementById('studentForm').reset();
-        document.getElementById('educationalDetails').style.display = 'none'; // Hide educational details after submission    
-
-        // Check if the user wants to download a copy
-
-        if (data.seatAllocated) {
-            // Generate PDF if user opted to download a copy and seats were allocated
-            if (formData.downloadCopy === 'yes') {
-                generatePDF(formData);
-            }
-        } 
+        document.getElementById('educationalDetails').style.display = 'none'; // Hide educational details after submission
     })
     .catch((error) => {
         console.error('Error:', error);
@@ -162,55 +153,6 @@ document.getElementById('studentForm').addEventListener('submit', function(e) {
     });
 });
 
-
-// Function to generate PDF using jsPDF
-function generatePDF(formData) {
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
-    doc.setFont('Helvetica', 'bold');
-            doc.text('Student Admission Form', 105, 10, { align: 'center' });
-            doc.setLineWidth(0.5);
-            doc.rect(10, 15, 190, 275); // Border for the form
-
-    doc.setFontSize(16);
-    doc.text("Student Admission Form", 20, 20);
-    doc.setFontSize(12);
-    doc.text(`Application Date: ${formData.applicationDate}`, 20, 30);
-    doc.text(`First Name: ${formData.firstName}`, 20, 40);
-    doc.text(`Last Name: ${formData.lastName}`, 20, 50);
-    doc.text(`Gender: ${formData.gender}`, 20, 60);
-    doc.text(`Date of Birth: ${formData.dob}`, 20, 70);
-    doc.text(`Father's Name: ${formData.fatherName}`, 20, 80);
-    doc.text(`Phone Number: ${formData.phoneNumber}`, 20, 90);
-    doc.text(`Email Address: ${formData.emailAddress}`, 20, 100);
-    doc.text(`Permanent Address: ${formData.permanentAddress}`, 20, 110);
-    doc.text(`Present Address: ${formData.presentAddress}`, 20, 130);
-    doc.text(`Programme: ${formData.programme}`, 20, 150);
-    doc.text(`Stream: ${formData.stream}`, 20, 160);
-
-    if (formData.programme === 'btech') {
-        doc.text(`10th School Name: ${formData.tenthSchoolName}`, 20, 170);
-        doc.text(`10th Percentage: ${formData.tenthPercentage}`, 20, 180);
-        doc.text(`Inter/Diploma College Name: ${formData.interCollegeName}`, 20, 190);
-        doc.text(`Inter/Diploma Percentage: ${formData.interPercentage}`, 20, 200);
-    } else if (formData.programme === 'mtech') {
-        doc.text(`10th School Name: ${formData.tenthSchoolName}`, 20, 170);
-        doc.text(`10th Percentage: ${formData.tenthPercentage}`, 20, 180);
-        doc.text(`Inter/Diploma College Name: ${formData.interCollegeName}`, 20, 190);
-        doc.text(`Inter/Diploma Percentage: ${formData.interPercentage}`, 20, 200);
-        doc.text(`B.Tech/Degree College Name: ${formData.btechCollegeName}`, 20, 210);
-        doc.text(`B.Tech/Degree Percentage: ${formData.btechPercentage}`, 20, 220);
-    } else if (formData.programme === 'mba') {
-        doc.text(`10th School Name: ${formData.tenthSchoolName}`, 20, 170);
-        doc.text(`10th Percentage: ${formData.tenthPercentage}`, 20, 180);
-        doc.text(`Inter/Diploma College Name: ${formData.interCollegeName}`, 20, 190);
-        doc.text(`Inter/Diploma Percentage: ${formData.interPercentage}`, 20, 200);
-        doc.text(`Degree College Name: ${formData.degreeCollegeName}`, 20, 210);
-        doc.text(`Degree Percentage: ${formData.degreePercentage}`, 20, 220);
-    }
-
-    doc.save('Student_Admission_Form.pdf');
-}
 window.onload = function() {
     const today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
     const applicationDateInput = document.getElementById('applicationDate');
