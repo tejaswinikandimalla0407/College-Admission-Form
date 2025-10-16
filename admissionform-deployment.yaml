@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: app-container
-        image: sowmya140/student-application-app:latest
+        image: tejaswinikandimalla/college-form:latest
         ports:
           - containerPort: 3028
         env:
